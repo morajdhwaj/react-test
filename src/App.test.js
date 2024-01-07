@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import App from "./App";
 
 test("Test First React App Case", () => {
@@ -55,4 +55,18 @@ describe.skip("API test case group ", () => {
     let checkInput = screen.getByRole("textbox");
     expect(checkInput).toHaveAttribute("name", "username");
   });
+});
+
+test("on change event testing", () => {
+  render(<App />);
+  let input = screen.getByRole("textbox");
+  fireEvent.change(input, { target: { value: "a" } });
+  expect(input.value).toBe("a");
+});
+
+test("click event test case", () => {
+  render(<App />);
+  const btn = screen.getByRole("button");
+  fireEvent.click(btn);
+  expect(screen.getByText("Updated Data")).toBeInTheDocument();
 });
